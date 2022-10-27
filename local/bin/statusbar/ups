@@ -1,0 +1,3 @@
+#!/bin/sh
+
+sudo pwrstat -status | grep Capacity | awk '{ print "🔋[" $3 $4 "]" }'
