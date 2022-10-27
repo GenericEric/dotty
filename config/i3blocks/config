@@ -1,0 +1,26 @@
+command=~/.local/bin/statusbar/$BLOCK_NAME
+separator_block_width=35
+markup=pango
+
+[cpu]
+interval=1
+
+[ngpu]
+interval=1
+
+[disk]
+interval=60
+command=disk /
+
+[memory]
+interval=30
+
+[volume]
+interval=once
+signal=10
+
+[clock]
+interval=30
+
+[ups]
+interval=30
