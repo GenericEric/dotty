@@ -7,7 +7,8 @@
 #                                  |___/    by GenericEric <https://bgeneric.net>
 #
 # This config makes use of the environment variables $TERMINAL and $BROWSER. Without these set, some
-# things won't work like (you guessed it!) launching anything with terminal or opening the browser. The
+# things won't work like (you guessed it!) launching anything with terminal or opening the browser. Some 
+# funtions also depend on scripts in my ~/.local/bin location. <https://github.com/GenericEric/dotty/tree/main/local/bin>. The
 # font should also be configured or Hack font should be installed.
 #
 # Like most of my configs, this is very specific to my system setup, especially when it comes to 
