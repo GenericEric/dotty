@@ -1,0 +1,202 @@
+# ~/.config/i3/config
+#  _ _____                    __ _
+# (_)___ /    ___ ___  _ __  / _(_) __ _
+# | | |_ \   / __/ _ \| '_ \| |_| |/ _` |
+# | |___) | | (_| (_) | | | |  _| | (_| |
+# |_|____/   \___\___/|_| |_|_| |_|\__, |
+#                                  |___/    by GenericEric <https://bgeneric.net>
+#
+# This config makes use of the environment variables $TERMINAL and $BROWSER. Without these set, some
+# things won't work like (you guessed it!) launching anything with terminal or opening the browser. The
+# font should also be configured or Hack font should be installed.
+#
+# Like most of my configs, this is very specific to my system setup, especially when it comes to 
+# the monitor and workspace setup.
+#
+# For a complete reference, see https://i3wm.org/docs/userguide.html
+#
+#
+#############################
+##--- Basic Definitions ---##
+#############################
+# Sets border colors. #
+client.focused	#000000 #000000 #ffffff #000000   #000000
+
+set $mod            Mod4
+set $inner_gaps     12
+set $outer_gaps     7
+font                pango:Hack 12
+set $mon_left       "DP-0"
+set $mon_mid        "DP-4"
+set $mon_right      "DP-2"
+
+# Name workspaces #
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6. EMAIL"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10. CHAT"
+
+
+###########################
+##--- Launch Programs ---##
+###########################
+bindsym $mod+g              exec --no-startup-id steam
+bindsym $mod+e              exec --no-startup-id flatpak run org.mozilla.Thunderbird
+bindsym $mod+w              exec --no-startup-id $BROWSER
+bindsym $mod+Shift+w        exec --no-startup-id $BROWSER-incognito
+bindsym $mod+r              exec --no-startup-id nemo ~
+bindsym --release Print     exec --no-startup-id gnome-screenshot -af "/home/$USER/Pictures/Screenshots/SS-$(date +\%Y.\%m.\%d) $(date +\%H:\%M:\%S).png"
+bindsym $mod+Shift+c        exec --no-startup-id camtoggle
+bindsym $mod+n              exec $TERMINAL -e newsboat
+bindsym $mod+Return         exec --no-startup-id $TERMINAL
+bindsym $mod+slash		    split vertical ;; exec $TERMINAL
+bindsym $mod+apostrophe		split horizontal ;; exec $TERMINAL
+bindsym $mod+Shift+Return	exec --no-startup-id samedir
+bindsym $mod+d 				exec --no-startup-id rofi -show-icons -show drun -run-shell-command '{terminal} -e bash -ic "{cmd} && read"'
+bindsym $mod+grave 			exec --no-startup-id rofimoji
+
+
+#############################
+##--- Function Bindings ---##
+#############################
+bindsym $mod+Shift+h		exec --no-startup-id i3resize left
+bindsym $mod+Shift+j		exec --no-startup-id i3resize down
+bindsym $mod+Shift+k		exec --no-startup-id i3resize up
+bindsym $mod+Shift+l		exec --no-startup-id i3resize right
+
+bindsym $mod+h			    focus left
+bindsym $mod+Left		    focus left
+bindsym $mod+j			    focus down
+bindsym $mod+Down		    focus down
+bindsym $mod+k			    focus up
+bindsym $mod+Up			    focus up
+bindsym $mod+l			    focus right
+bindsym $mod+Right 		    focus right
+
+bindsym $mod+Ctrl+h         move left
+bindsym $mod+Ctrl+Left      move left
+bindsym $mod+Ctrl+j         move down
+bindsym $mod+Ctrl+Down      move down
+bindsym $mod+Ctrl+k         move up
+bindsym $mod+Ctrl+Up        move up
+bindsym $mod+Ctrl+l         move right
+bindsym $mod+Ctrl+Right     move right
+
+bindsym $mod+t			    layout toggle split
+bindsym $mod+Shift+t		layout tabbed
+
+bindsym $mod+F12	 		reload
+bindsym $mod+Shift+F12		restart
+bindsym $mod+Shift+F2 		exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+floating_modifier           $mod
+bindsym $mod+f			    fullscreen toggle
+bindsym $mod+Space			floating toggle
+bindsym $mod+Shift+Space    floating toggle; sticky toggle
+bindsym $mod+q		    	[con_id="__focused__" instance="^(?!dropdown_).*$"] kill
+bindsym $mod+Shift+q		[con_id="__focused__" instance="^(?!dropdown_).*$"] exec --no-startup-id kill -9 `xdotool getwindowfocus getwindowpid`
+
+# Use pactl to adjust volume in PulseAudio. #
+set $refresh_i3status killall -SIGUSR1 i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+############################
+##--- Auto Start Stuff ---##
+############################
+exec --no-startup-id picom --backend glx -b
+exec --no-startup-id polychromatic-tray-applet
+exec --no-startup-id easyeffects -w
+exec --no-startup-id discord
+# exec --no-startup-id flatpak run io.github.qtox.qTox
+exec --no-startup-id kdec-i
+exec --no-startup-id dex --autostart --environment i3
+exec --no-startup-id nm-applet
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+
+
+######################
+##--- Bar Config ---##
+######################
+bar {
+	font pango:Hack 16
+	status_command i3blocks
+	position top
+	mode dock
+	modifier None
+        tray_output DP-0
+        tray_padding 7
+}
+
+
+################
+##--- Gaps ---##
+################
+gaps inner $inner_gaps
+gaps outer $outer_gaps
+
+
+######################
+##--- Workspaces ---##
+######################
+# Bind programs to specific workspaces. Use xprop to find window classes. #
+assign [class="qTox"] $ws10
+assign [class="discord"] $ws10
+assign [class="thunderbird"] $ws6
+assign [class="steam"] $ws7
+
+# Binds workspaces to specific monitors. #
+workspace $ws1 output $mon_mid
+workspace $ws2 output $mon_mid
+workspace $ws3 output $mon_mid
+workspace $ws4 output $mon_mid
+workspace $ws5 output $mon_mid
+workspace $ws6 output $mon_left
+workspace $ws7 output $mon_left
+workspace $ws8 output $mon_left
+workspace $ws9 output $mon_left
+workspace $ws10 output $mon_right
+
+# Switch to workspace. #
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+# Move focused container to workspace. #
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+
+###################
+##--- Windows ---##
+###################
+# Removes window decorations and sets border size. #
+for_window [class="^.*"] border pixel 6
+
+# Bindings to make the webcam float and stick. #
+for_window [title="mpv"] floating enable
+for_window [title="mpv"] sticky enable
+for_window [title="mpv"] border pixel 6
+no_focus [title="mpv"]
