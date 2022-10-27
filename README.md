@@ -1,2 +1,2 @@
 # dotty
-My relavant dot files
+My relevant dot files
