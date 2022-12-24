@@ -7,8 +7,7 @@
 #                                  |___/    by GenericEric <https://bgeneric.net>
 #
 # This config makes use of the environment variables $TERMINAL and $BROWSER. Without these set, some
-# things won't work like (you guessed it!) launching anything with terminal or opening the browser. Some 
-# funtions also depend on scripts in my ~/.local/bin location. <https://github.com/GenericEric/dotty/tree/main/local/bin>. The
+# things won't work like (you guessed it!) launching anything with terminal or opening the browser. The
 # font should also be configured or Hack font should be installed.
 #
 # Like most of my configs, this is very specific to my system setup, especially when it comes to 
@@ -21,11 +20,13 @@
 ##--- Basic Definitions ---##
 #############################
 # Sets border colors. #
-client.focused	#000000 #000000 #ffffff #000000   #000000
+# class         border  backgr   text    indicator  child_border
+client.focused	#9999ff #000000 #ffffff   #00004d    #00004d
 
 set $mod            Mod4
-set $inner_gaps     12
-set $outer_gaps     7
+set $inner_gaps     8
+set $outer_gaps     1
+set $TERMINAL       st
 font                pango:Hack 12
 set $mon_left       "DP-0"
 set $mon_mid        "DP-4"
@@ -47,20 +48,22 @@ set $ws10 "10. CHAT"
 ###########################
 ##--- Launch Programs ---##
 ###########################
-bindsym $mod+g              exec --no-startup-id steam
+bindsym $mod+g              exec --no-startup-id steam -I -n -5
 bindsym $mod+e              exec --no-startup-id flatpak run org.mozilla.Thunderbird
 bindsym $mod+w              exec --no-startup-id $BROWSER
-bindsym $mod+Shift+w        exec --no-startup-id $BROWSER-incognito
+bindsym $mod+Shift+w        exec --no-startup-id $TERMNINAL -e brave --incognito
 bindsym $mod+r              exec --no-startup-id nemo ~
 bindsym --release Print     exec --no-startup-id gnome-screenshot -af "/home/$USER/Pictures/Screenshots/SS-$(date +\%Y.\%m.\%d) $(date +\%H:\%M:\%S).png"
+# bindsym Print               exec --no-statrup-id $TERMINAL -e /home/$USER/.local/bin/maimpick
 bindsym $mod+Shift+c        exec --no-startup-id camtoggle
 bindsym $mod+n              exec $TERMINAL -e newsboat
 bindsym $mod+Return         exec --no-startup-id $TERMINAL
 bindsym $mod+slash	    split vertical ;; exec $TERMINAL
 bindsym $mod+apostrophe	    split horizontal ;; exec $TERMINAL
 bindsym $mod+Shift+Return   exec --no-startup-id samedir
-bindsym $mod+d              exec --no-startup-id rofi -show-icons -show drun -run-shell-command '{terminal} -e bash -ic "{cmd} && read"'
-bindsym $mod+grave          exec --no-startup-id rofimoji
+bindsym $mod+d 		    exec --no-startup-id rofi -show-icons -show drun -run-shell-command '{terminal} -e bash -ic "{cmd} && read"'
+bindsym $mod+grave 	    exec --no-startup-id rofimoji
+bindsym $mod+F2             exec --no-startup-id $TERMINAL -c weechat -e weechat
 
 
 #############################
@@ -71,36 +74,36 @@ bindsym $mod+Shift+j		exec --no-startup-id i3resize down
 bindsym $mod+Shift+k		exec --no-startup-id i3resize up
 bindsym $mod+Shift+l		exec --no-startup-id i3resize right
 
-bindsym $mod+h			focus left
-bindsym $mod+Left		focus left
-bindsym $mod+j			focus down
-bindsym $mod+Down		focus down
-bindsym $mod+k			focus up
-bindsym $mod+Up			focus up
-bindsym $mod+l			focus right
-bindsym $mod+Right 		focus right
+bindsym $mod+h              focus left
+bindsym $mod+Left           focus left
+bindsym $mod+j              focus down
+bindsym $mod+Down           focus down
+bindsym $mod+k              focus up
+bindsym $mod+Up             focus up
+bindsym $mod+l              focus right
+bindsym $mod+Right          focus right
 
-bindsym $mod+Ctrl+h             move left
-bindsym $mod+Ctrl+Left          move left
-bindsym $mod+Ctrl+j             move down
-bindsym $mod+Ctrl+Down          move down
-bindsym $mod+Ctrl+k             move up
-bindsym $mod+Ctrl+Up            move up
-bindsym $mod+Ctrl+l             move right
-bindsym $mod+Ctrl+Right         move right
+bindsym $mod+Ctrl+h         move left
+bindsym $mod+Ctrl+Left      move left
+bindsym $mod+Ctrl+j         move down
+bindsym $mod+Ctrl+Down      move down
+bindsym $mod+Ctrl+k         move up
+bindsym $mod+Ctrl+Up        move up
+bindsym $mod+Ctrl+l         move right
+bindsym $mod+Ctrl+Right     move right
 
-bindsym $mod+t			layout toggle split
-bindsym $mod+Shift+t		layout tabbed
+bindsym $mod+t              layout toggle split
+bindsym $mod+Shift+t        layout tabbed
 
-bindsym $mod+F12	        reload
-bindsym $mod+Shift+F12		restart
-bindsym $mod+Shift+F2 		exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
-floating_modifier               $mod
-bindsym $mod+f			fullscreen toggle
-bindsym $mod+Space		floating toggle
-bindsym $mod+Shift+Space        floating toggle; sticky toggle
-bindsym $mod+q		    	[con_id="__focused__" instance="^(?!dropdown_).*$"] kill
-bindsym $mod+Shift+q		[con_id="__focused__" instance="^(?!dropdown_).*$"] exec --no-startup-id kill -9 `xdotool getwindowfocus getwindowpid`
+bindsym $mod+F12            reload
+bindsym $mod+Shift+F12      restart
+bindsym $mod+Shift+F2       exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+floating_modifier           $mod
+bindsym $mod+f              fullscreen toggle
+bindsym $mod+Space          floating toggle
+bindsym $mod+Shift+Space    floating toggle; sticky toggle
+bindsym $mod+q              [con_id="__focused__" instance="^(?!dropdown_).*$"] kill
+bindsym $mod+Shift+q        [con_id="__focused__" instance="^(?!dropdown_).*$"] exec --no-startup-id kill -9 `xdotool getwindowfocus getwindowpid`
 
 # Use pactl to adjust volume in PulseAudio. #
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -109,11 +112,12 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
+
 ############################
 ##--- Auto Start Stuff ---##
 ############################
 exec --no-startup-id picom --backend glx -b
-exec --no-startup-id polychromatic-tray-applet
+# exec --no-startup-id polychromatic-tray-applet
 exec --no-startup-id easyeffects -w
 exec --no-startup-id discord
 # exec --no-startup-id flatpak run io.github.qtox.qTox
@@ -121,6 +125,9 @@ exec --no-startup-id kdec-i
 exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id nm-applet
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+exec --no-startup-id vorta -d
+exec --no-startup-id hexchat
+# exec --no-startup-id $TERMINAL -c weechat -e weechat
 
 
 ######################
@@ -134,6 +141,7 @@ bar {
 	modifier None
         tray_output DP-0
         tray_padding 7
+	height 30
 }
 
 
@@ -151,7 +159,11 @@ gaps outer $outer_gaps
 assign [class="qTox"] $ws10
 assign [class="discord"] $ws10
 assign [class="thunderbird"] $ws6
-assign [class="steam"] $ws7
+assign [class="Steam"] $ws7
+assign [class="Hexchat"] $ws10
+assign [class="Weechat"] $ws10
+assign [class="Mumble"] $ws10
+
 
 # Binds workspaces to specific monitors. #
 workspace $ws1 output $mon_mid
@@ -193,11 +205,20 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 ###################
 ##--- Windows ---##
 ###################
+default_border pixel 4
 # Removes window decorations and sets border size. #
-for_window [class="^.*"] border pixel 6
+for_window [class="^.*"] border pixel 4
 
 # Bindings to make the webcam float and stick. #
 for_window [title="mpv"] floating enable
 for_window [title="mpv"] sticky enable
 for_window [title="mpv"] border pixel 6
 no_focus [title="mpv"]
+
+# Make calculator float
+for_window [class="gnome-calculator"] floating enable
+
+# Make Protonvpn float
+for_window [class="Protonvpn"] floating enable
+
+
