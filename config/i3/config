@@ -56,11 +56,11 @@ bindsym --release Print     exec --no-startup-id gnome-screenshot -af "/home/$US
 bindsym $mod+Shift+c        exec --no-startup-id camtoggle
 bindsym $mod+n              exec $TERMINAL -e newsboat
 bindsym $mod+Return         exec --no-startup-id $TERMINAL
-bindsym $mod+slash		    split vertical ;; exec $TERMINAL
-bindsym $mod+apostrophe		split horizontal ;; exec $TERMINAL
-bindsym $mod+Shift+Return	exec --no-startup-id samedir
-bindsym $mod+d 				exec --no-startup-id rofi -show-icons -show drun -run-shell-command '{terminal} -e bash -ic "{cmd} && read"'
-bindsym $mod+grave 			exec --no-startup-id rofimoji
+bindsym $mod+slash	    split vertical ;; exec $TERMINAL
+bindsym $mod+apostrophe	    split horizontal ;; exec $TERMINAL
+bindsym $mod+Shift+Return   exec --no-startup-id samedir
+bindsym $mod+d              exec --no-startup-id rofi -show-icons -show drun -run-shell-command '{terminal} -e bash -ic "{cmd} && read"'
+bindsym $mod+grave          exec --no-startup-id rofimoji
 
 
 #############################
@@ -71,34 +71,34 @@ bindsym $mod+Shift+j		exec --no-startup-id i3resize down
 bindsym $mod+Shift+k		exec --no-startup-id i3resize up
 bindsym $mod+Shift+l		exec --no-startup-id i3resize right
 
-bindsym $mod+h			    focus left
-bindsym $mod+Left		    focus left
-bindsym $mod+j			    focus down
-bindsym $mod+Down		    focus down
-bindsym $mod+k			    focus up
-bindsym $mod+Up			    focus up
-bindsym $mod+l			    focus right
-bindsym $mod+Right 		    focus right
+bindsym $mod+h			focus left
+bindsym $mod+Left		focus left
+bindsym $mod+j			focus down
+bindsym $mod+Down		focus down
+bindsym $mod+k			focus up
+bindsym $mod+Up			focus up
+bindsym $mod+l			focus right
+bindsym $mod+Right 		focus right
 
-bindsym $mod+Ctrl+h         move left
-bindsym $mod+Ctrl+Left      move left
-bindsym $mod+Ctrl+j         move down
-bindsym $mod+Ctrl+Down      move down
-bindsym $mod+Ctrl+k         move up
-bindsym $mod+Ctrl+Up        move up
-bindsym $mod+Ctrl+l         move right
-bindsym $mod+Ctrl+Right     move right
+bindsym $mod+Ctrl+h             move left
+bindsym $mod+Ctrl+Left          move left
+bindsym $mod+Ctrl+j             move down
+bindsym $mod+Ctrl+Down          move down
+bindsym $mod+Ctrl+k             move up
+bindsym $mod+Ctrl+Up            move up
+bindsym $mod+Ctrl+l             move right
+bindsym $mod+Ctrl+Right         move right
 
-bindsym $mod+t			    layout toggle split
+bindsym $mod+t			layout toggle split
 bindsym $mod+Shift+t		layout tabbed
 
-bindsym $mod+F12	 		reload
+bindsym $mod+F12	        reload
 bindsym $mod+Shift+F12		restart
 bindsym $mod+Shift+F2 		exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
-floating_modifier           $mod
-bindsym $mod+f			    fullscreen toggle
-bindsym $mod+Space			floating toggle
-bindsym $mod+Shift+Space    floating toggle; sticky toggle
+floating_modifier               $mod
+bindsym $mod+f			fullscreen toggle
+bindsym $mod+Space		floating toggle
+bindsym $mod+Shift+Space        floating toggle; sticky toggle
 bindsym $mod+q		    	[con_id="__focused__" instance="^(?!dropdown_).*$"] kill
 bindsym $mod+Shift+q		[con_id="__focused__" instance="^(?!dropdown_).*$"] exec --no-startup-id kill -9 `xdotool getwindowfocus getwindowpid`
 
