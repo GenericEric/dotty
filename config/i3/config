@@ -37,8 +37,8 @@ set $ws1 "1"
 set $ws2 "2"
 set $ws3 "3"
 set $ws4 "4"
-set $ws5 "5"
-set $ws6 "6. EMAIL"
+set $ws5 "5. EMAIL"
+set $ws6 "6"
 set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
@@ -116,19 +116,21 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 ############################
 ##--- Auto Start Stuff ---##
 ############################
+exec --no-startup-id nm-applet
 exec --no-startup-id picom --backend glx -b
 # exec --no-startup-id polychromatic-tray-applet
-exec --no-startup-id easyeffects -w
-exec --no-startup-id discord
+exec --no-startup-id easyeffects --gapplication-service
+exec --no-startup-id "sleep 10; discord"
 # exec --no-startup-id flatpak run io.github.qtox.qTox
 exec --no-startup-id kdec-i
 exec --no-startup-id dex --autostart --environment i3
-exec --no-startup-id nm-applet
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 exec --no-startup-id vorta -d
-exec --no-startup-id hexchat
+exec --no-startup-id "sleep 20; hexchat"
+exec --no-startup-id "sleep 10; flatpak run org.mozilla.Thunderbird"
 # exec --no-startup-id $TERMINAL -c weechat -e weechat
-
+exec --no-startup-id "sleep 10; $TERMINAL -e mountbackups"
+exec --no-startup-id clipit
 
 ######################
 ##--- Bar Config ---##
@@ -158,7 +160,7 @@ gaps outer $outer_gaps
 # Bind programs to specific workspaces. Use xprop to find window classes. #
 assign [class="qTox"] $ws10
 assign [class="discord"] $ws10
-assign [class="thunderbird"] $ws6
+assign [class="thunderbird"] $ws5
 assign [class="Steam"] $ws7
 assign [class="Hexchat"] $ws10
 assign [class="Weechat"] $ws10
@@ -170,7 +172,7 @@ workspace $ws1 output $mon_mid
 workspace $ws2 output $mon_mid
 workspace $ws3 output $mon_mid
 workspace $ws4 output $mon_mid
-workspace $ws5 output $mon_mid
+workspace $ws5 output $mon_left
 workspace $ws6 output $mon_left
 workspace $ws7 output $mon_left
 workspace $ws8 output $mon_left
@@ -210,10 +212,10 @@ default_border pixel 4
 for_window [class="^.*"] border pixel 4
 
 # Bindings to make the webcam float and stick. #
-for_window [title="mpv"] floating enable
-for_window [title="mpv"] sticky enable
-for_window [title="mpv"] border pixel 6
-no_focus [title="mpv"]
+for_window [class="mpv"] floating enable
+for_window [class="mpv"] sticky enable
+for_window [class="mpv"] border pixel 6
+# no_focus [title="mpv"]
 
 # Make calculator float
 for_window [class="gnome-calculator"] floating enable
@@ -221,4 +223,8 @@ for_window [class="gnome-calculator"] floating enable
 # Make Protonvpn float
 for_window [class="Protonvpn"] floating enable
 
+# Make Lutris float
+for_window [class="Lutris"] floating enable
 
+# Make Image Viewer float
+for_window [class="Eog"] floating enable
